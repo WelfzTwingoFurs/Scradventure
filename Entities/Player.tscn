@@ -1,0 +1,40 @@
+[gd_scene load_steps=7 format=2]
+
+[ext_resource path="res://Entities/Player.gd" type="Script" id=1]
+[ext_resource path="res://Grabhic/player1sword.png" type="Texture" id=2]
+[ext_resource path="res://Grabhic/player1.png" type="Texture" id=3]
+[ext_resource path="res://Sounds/bump.wav" type="AudioStream" id=4]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 8, 8 )
+
+[sub_resource type="RectangleShape2D" id=2]
+extents = Vector2( 8, 8 )
+
+[node name="Player" type="KinematicBody2D" groups=[
+"player",
+]]
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="SpriteSword" type="Sprite" parent="."]
+texture = ExtResource( 2 )
+
+[node name="Sprite" type="Sprite" parent="."]
+texture = ExtResource( 3 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource( 1 )
+
+[node name="SndBump" type="AudioStreamPlayer2D" parent="."]
+rotation = 1.5708
+stream = ExtResource( 4 )
+
+[node name="HitEmArea" type="Area2D" parent="."]
+
+[node name="HitEmCol" type="CollisionShape2D" parent="HitEmArea"]
+shape = SubResource( 2 )
+
+[connection signal="body_entered" from="HitEmArea" to="." method="_on_HitEmArea_body_entered"]
